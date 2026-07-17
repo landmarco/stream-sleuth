@@ -39,7 +39,7 @@ cp .env.example .env
 You should see lines like:
 
 ```
-stream-sleuth: sampling https://stream.wxdu.art/wxdu192.mp3 every 25s -> https://wxdu.art/api/shazam
+stream-sleuth: sampling https://stream.wxdu.art/wxdu192.mp3 (hit: 6s cap / 23s pause, gap: 12s cap / 4s pause) -> https://api.wxdu.art/api/shazam
 [14:03:21] posted (201): Björk - Hunter
 ```
 

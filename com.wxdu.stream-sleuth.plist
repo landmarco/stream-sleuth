@@ -20,7 +20,7 @@
     <key>EnvironmentVariables</key>
     <dict>
         <key>WXDU_STREAM_URL</key>    <string>https://stream.wxdu.art/wxdu192.mp3</string>
-        <key>WXDU_SHAZAM_API</key>    <string>https://wxdu.art/api/shazam</string>
+        <key>WXDU_SHAZAM_API</key>    <string>https://api.wxdu.art/api/shazam</string>
         <key>WXDU_SHAZAM_SECRET</key> <string>PUT_THE_SHARED_SECRET_HERE</string>
         <key>WXDU_INTERVAL</key>      <string>23</string>
         <key>WXDU_INTERVAL_GAP</key>  <string>4</string>

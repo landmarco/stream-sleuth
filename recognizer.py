@@ -10,7 +10,7 @@ recent as clickable buttons for live DJs.
 Config is via environment variables (see .env.example / the launchd plist):
 
   WXDU_STREAM_URL    stream to sample      (default: 192 kbps stream)
-  WXDU_SHAZAM_API    ingest endpoint URL   (default: https://wxdu.art/api/shazam)
+  WXDU_SHAZAM_API    ingest endpoint URL   (default: https://api.wxdu.art/api/shazam)
   WXDU_SHAZAM_SECRET shared secret         (REQUIRED; matches the API's SHAZAM_INGEST_SECRET)
   WXDU_INTERVAL      pause between tries    (default: 23; while getting hits)
   WXDU_INTERVAL_GAP  pause between tries    (default: 4;  during a miss/gap, to
@@ -36,7 +36,7 @@ import urllib.request
 from shazamio import Shazam
 
 STREAM_URL   = os.environ.get("WXDU_STREAM_URL", "https://stream.wxdu.art/wxdu192.mp3")
-API_URL      = os.environ.get("WXDU_SHAZAM_API", "https://wxdu.art/api/shazam")
+API_URL      = os.environ.get("WXDU_SHAZAM_API", "https://api.wxdu.art/api/shazam")
 API_SECRET   = os.environ.get("WXDU_SHAZAM_SECRET", "")
 INTERVAL     = int(os.environ.get("WXDU_INTERVAL", "23"))
 INTERVAL_GAP = int(os.environ.get("WXDU_INTERVAL_GAP", "4"))
