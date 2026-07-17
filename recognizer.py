@@ -17,6 +17,8 @@ Config is via environment variables (see .env.example / the launchd plist):
                                              catch the next track sooner)
   WXDU_CAPTURE_FAST  speedy capture seconds (default: 6;  used while getting hits)
   WXDU_CAPTURE_SLOW  longer capture seconds (default: 12; used after a miss)
+  WXDU_VERBOSE       log every cycle        (default: off; set 1 to see each tick,
+                                             incl. same-song hits and repeat misses)
 
 Capture length adapts: it starts speedy (WXDU_CAPTURE_FAST). Any hit -- a new
 song or the same one still playing -- keeps it speedy. A miss (can't identify
@@ -42,6 +44,9 @@ INTERVAL     = int(os.environ.get("WXDU_INTERVAL", "23"))
 INTERVAL_GAP = int(os.environ.get("WXDU_INTERVAL_GAP", "4"))
 CAPTURE_FAST = int(os.environ.get("WXDU_CAPTURE_FAST", "6"))
 CAPTURE_SLOW = int(os.environ.get("WXDU_CAPTURE_SLOW", "12"))
+# When set (1/true/yes), log every cycle -- including same-song hits and repeat
+# misses -- so you can watch it tick. Off by default to keep the log quiet.
+VERBOSE      = os.environ.get("WXDU_VERBOSE", "").lower() in ("1", "true", "yes")
 
 
 def capture(path, seconds):
@@ -138,6 +143,9 @@ def main():
                     last_key = key
                     print(f"[{time.strftime('%H:%M:%S')}] posted ({status}): "
                           f"{track['artist']} - {track['song']}", flush=True)
+                elif VERBOSE:
+                    print(f"[{time.strftime('%H:%M:%S')}] still playing: "
+                          f"{track['artist']} - {track['song']}", flush=True)
                 # Any hit (new or the same track still playing) means we're
                 # confident about what's on air -- keep captures speedy.
                 window = CAPTURE_FAST
@@ -148,6 +156,8 @@ def main():
                 if window != CAPTURE_SLOW:
                     print(f"[{time.strftime('%H:%M:%S')}] no match, "
                           f"extending capture to {CAPTURE_SLOW}s", flush=True)
+                elif VERBOSE:
+                    print(f"[{time.strftime('%H:%M:%S')}] no match ({CAPTURE_SLOW}s)", flush=True)
                 window = CAPTURE_SLOW
         except Exception as e:  # noqa: BLE001 - keep the loop alive through any error
             print(f"[{time.strftime('%H:%M:%S')}] error: {e}", file=sys.stderr, flush=True)
