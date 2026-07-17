@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- launchd job to run the recognizer at login and keep it alive.
+     Install: edit the two /PATH/TO placeholders + the secret, then:
+       cp com.wxdu.stream-sleuth.plist ~/Library/LaunchAgents/
+       launchctl load ~/Library/LaunchAgents/com.wxdu.stream-sleuth.plist
+     Logs go to /tmp/stream-sleuth.{out,err}.log -->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.wxdu.stream-sleuth</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/PATH/TO/stream-sleuth/venv/bin/python</string>
+        <string>/PATH/TO/stream-sleuth/recognizer.py</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>WXDU_STREAM_URL</key>    <string>https://stream.wxdu.art/wxdu192.mp3</string>
+        <key>WXDU_SHAZAM_API</key>    <string>https://wxdu.art/api/shazam</string>
+        <key>WXDU_SHAZAM_SECRET</key> <string>PUT_THE_SHARED_SECRET_HERE</string>
+        <key>WXDU_INTERVAL</key>      <string>23</string>
+        <key>WXDU_INTERVAL_GAP</key>  <string>4</string>
+        <key>WXDU_CAPTURE_FAST</key>  <string>6</string>
+        <key>WXDU_CAPTURE_SLOW</key>  <string>12</string>
+        <!-- ffmpeg from Homebrew lives here; add to PATH so subprocess finds it -->
+        <key>PATH</key> <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+
+    <key>RunAtLoad</key>  <true/>
+    <key>KeepAlive</key>  <true/>
+
+    <key>StandardOutPath</key> <string>/tmp/stream-sleuth.out.log</string>
+    <key>StandardErrorPath</key> <string>/tmp/stream-sleuth.err.log</string>
+</dict>
+</plist>
