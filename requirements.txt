@@ -1,1 +1,8 @@
 shazamio>=0.8
+numpy>=1.24
+mutagen>=1.46
+fastapi>=0.110
+uvicorn>=0.29
+strawberry-graphql>=0.230
+python-multipart>=0.0.9
+psycopg[binary]>=3.1
