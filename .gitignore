@@ -1,4 +1,10 @@
 .env
 venv/
+
+# benchmark fixtures (large audio files; provide your own)
+test_tracks/
 __pycache__/
 *.pyc
+*.db
+*.db-wal
+*.db-shm
